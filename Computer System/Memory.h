@@ -9,8 +9,12 @@ namespace ownfos
 	{
 	public:
 		void Print();
+		void GUI();
 
 		Data& operator[](unsigned int address);
+
+		std::map<unsigned int, Data>::iterator begin();
+		std::map<unsigned int, Data>::iterator end();
 
 	private:
 		InstructionEncoder encoder;

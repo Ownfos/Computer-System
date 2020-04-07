@@ -1,6 +1,7 @@
 #include "InstructionExecutor.h"
 #include "EveryInstruction.h"
 #include "Memory.h"
+#include "imgui.h"
 #include "fmt/format.h"
 #include <iostream>
 
@@ -15,7 +16,8 @@ namespace ownfos
 		: memory(memory), programCounter(initialProgramCounter),
 		instructionStep(instructionStep), registers(registerCount),
 		instruction(0), memoryAddress(0), memoryBuffer(0)
-	{}
+	{
+	}
 
 	void InstructionExecutor::Execute()
 	{
@@ -42,6 +44,67 @@ namespace ownfos
 		std::cout << fmt::format("{:<10} | {} | {}\n", "IR", instruction.HexString(), instruction.DecodedString());
 		std::cout << fmt::format("{:<10} | {} |\n", "MAR", memoryAddress.HexString());
 		std::cout << fmt::format("{:<10} | {} | {}\n", "MBR", memoryBuffer.HexString(), memoryBuffer.DecodedString());
+	}
+
+	void InstructionExecutor::GUI()
+	{
+		auto registerUpdatePopup = [&](Data& target, std::string id)
+		{
+			if (ImGui::BeginPopupContextItem(("Set general register###" + id).c_str()))
+			{
+				static std::string inputBuffer(20, '\0');
+				ImGui::InputTextWithHint("New value", "0x12345678", &inputBuffer[0], inputBuffer.capacity());
+				if (ImGui::Button("Update register"))
+				{
+					target = std::stoi(inputBuffer, 0, 16);
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+			}
+		};
+		auto hoveredText = [&](std::string text, std::string id)
+		{
+			static std::string hoveredId = "";
+			if (id == hoveredId)
+			{
+				ImGui::Text(text.c_str());
+			}
+			else
+			{
+				ImGui::TextDisabled(text.c_str());
+				if (ImGui::IsItemHovered())
+					hoveredId = id;
+			}
+		};
+
+		ImGui::Begin("CPU");
+		if (ImGui::Button(fmt::format("Execute next instruction [{}]", memory[programCounter.AsValue()].DecodedString()).c_str()))
+		{
+			Execute();
+		}
+		if (ImGui::TreeNodeEx("Register content", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed))
+		{
+			if (ImGui::TreeNodeEx("Modifiable", ImGuiTreeNodeFlags_DefaultOpen))
+			{
+				for (auto i = 0; i < registers.size(); ++i)
+				{
+					hoveredText(fmt::format("r{:<9} | {} | {}\n", i, registers[i].HexString(), registers[i].DecodedString()), std::to_string(i));
+					registerUpdatePopup(registers[i], std::to_string(i));
+				}
+				hoveredText(fmt::format("{:<10} | {} |\n", "PC", programCounter.HexString()), "PC");
+				registerUpdatePopup(programCounter, "PC");
+				ImGui::TreePop();
+			}
+			if (ImGui::TreeNodeEx("Unmodifiable", ImGuiTreeNodeFlags_DefaultOpen))
+			{
+				ImGui::TextDisabled(fmt::format("{:<10} | {} | {}\n", "IR", instruction.HexString(), instruction.DecodedString()).c_str());
+				ImGui::TextDisabled(fmt::format("{:<10} | {} |\n", "MAR", memoryAddress.HexString()).c_str());
+				ImGui::TextDisabled(fmt::format("{:<10} | {} | {}\n", "MBR", memoryBuffer.HexString(), memoryBuffer.DecodedString()).c_str());
+				ImGui::TreePop();
+			}
+			ImGui::TreePop();
+		}
+		ImGui::End();
 	}
 
 	void InstructionExecutor::Visit(const Move* move)

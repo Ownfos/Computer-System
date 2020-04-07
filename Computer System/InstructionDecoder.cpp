@@ -5,7 +5,7 @@
 
 namespace ownfos
 {
-	std::unique_ptr<Instruction> InstructionDecoder::operator()(unsigned int instruction)
+	std::unique_ptr<Instruction> InstructionDecoder::operator()(unsigned int instruction) const
 	{
 		switch (instruction & Constants::INSTRUCTION_BITMASK)
 		{

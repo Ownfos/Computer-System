@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Data.h"
+#include "Constants.h"
 #include <vector>
+#include <map>
 
 namespace ownfos
 {
@@ -19,6 +21,7 @@ namespace ownfos
 
 		void Execute();
 		void Print();
+		void GUI();
 
 		virtual void Visit(const Move* move) override;
 		virtual void Visit(const Jump* move) override;

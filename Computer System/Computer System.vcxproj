@@ -88,6 +88,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Users\mejhg\Documents\GitHub\Waffle\Waffle;C:\Users\mejhg\Documents\GitHub\Waffle\libraries\imgui;C:\Users\mejhg\Documents\GitHub\Waffle\libraries\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,6 +169,11 @@
     <ClInclude Include="Move.h" />
     <ClInclude Include="Store.h" />
     <ClInclude Include="UnaryInstruction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Documents\GitHub\Waffle\Waffle\Waffle.vcxproj">
+      <Project>{a03d324d-9c16-4c55-b50b-7874da2ac462}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

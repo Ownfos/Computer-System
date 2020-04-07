@@ -9,6 +9,6 @@ namespace ownfos
 	class InstructionDecoder
 	{
 	public:
-		std::unique_ptr<Instruction> operator()(unsigned int instruction);
+		std::unique_ptr<Instruction> operator()(unsigned int instruction) const;
 	};
 }
