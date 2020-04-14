@@ -3,6 +3,7 @@
 #include "TypeDefinition.h"
 #include "Visitor.h"
 #include "Parameters.h"
+#include "imgui.h"
 #include "fmt/format.h"
 #include <optional>
 #include <variant>

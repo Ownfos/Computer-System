@@ -1,6 +1,7 @@
 #include "Instruction.h"
 #include "Selector.h"
 #include "Waffle.h"
+#include "imgui.h"
 #include "fmt/format.h"
 #include <memory>
 #include <set>
