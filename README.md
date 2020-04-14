@@ -12,7 +12,7 @@
 ## Description
  - This project allows you to create custom assembly instruction and simulate executing it
  - By default, five instructions (Move, Jump, Add, Load, Store) are implemented in main.cpp as example
- - If you wish to add your own instruction, inherit either UnaryInstruction or BinaryInstruction
+ - If you wish to add your own instruction, inherit either UnaryInstruction or BinaryInstruction.\
    Of course, inheriting Instruction (the base virtual class) and implementing everything manually is also valid choice
  ![Single Operand Instruction](https://github.com/Ownfos/Computer-System/blob/master/unary%20instruction%20example.png)
  ![Double Operand Instruction](https://github.com/Ownfos/Computer-System/blob/master/binary%20instruction%20example.png)
