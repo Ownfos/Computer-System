@@ -17,7 +17,7 @@
  ![Single Operand Instruction](https://github.com/Ownfos/Computer-System/blob/master/unary%20instruction%20example.png)
  ![Double Operand Instruction](https://github.com/Ownfos/Computer-System/blob/master/binary%20instruction%20example.png)
  - After implementing your instruction class, all you have to do is change the initial memory content\
-   or provide a prototype in main function
+   or provide a prototype in main function\
  ![Main Function](https://github.com/Ownfos/Computer-System/blob/master/main%20function.png)
  - After executing the program, you can dynamically change the content of memory or registers
    by right-clicking over them. Popup menu will allow you to set either a value or an instruction.
